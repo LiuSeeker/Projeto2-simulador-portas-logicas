@@ -13,13 +13,11 @@ public class AndGate extends Gate{
 	
 	@Override
 	public boolean read() {
-		// TODO Auto-generated method stub
 		return nand2.read();
 	}
 
 	@Override
 	public void connect(int pinIndex, Emitter emitter) {
-		// TODO Auto-generated method stub
 		if(pinIndex == 0) {
 			nand1.connect(0, emitter);
 		}
