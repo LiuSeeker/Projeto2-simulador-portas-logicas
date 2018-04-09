@@ -5,7 +5,7 @@ public class AndGate extends Gate{
 	private NandGate nand2;
 	
 	public AndGate() {
-		super("AND");
+		super("AND", 2);
 		nand1 = new NandGate();
 		nand2 = new NandGate();
 		nand2.connect(0, nand1);
@@ -22,12 +22,4 @@ public class AndGate extends Gate{
 		nand1.connect(pinIndex, emitter);
 		
 	}
-
-	@Override
-	public double size() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
 }

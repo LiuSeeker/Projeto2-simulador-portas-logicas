@@ -3,6 +3,7 @@ package br.pro.hashi.ensino.desagil.rafaelogic.view;
 import java.awt.event.ActionEvent;
 
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -17,21 +18,24 @@ public class GateView extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
 	private Gate gate;
-
-	private	JCheckBox entrada1;
-	private	JCheckBox entrada2;
+	private LinkedList<Source> sources;
 	private JCheckBox saida;
-	
-	private Source source;
-
+	private LinkedList<JCheckBox> checkBoxes;
 
 	public GateView(Gate gate) {
 		this.gate = gate;
-
-		entrada1 = new JCheckBox();
-		entrada2 = new JCheckBox();
+		
+		sources = new LinkedList<>();
+		checkBoxes = new LinkedList<>();
+		
+		for(int i = 0;gate.getSize() > i; i++) {
+			JCheckBox checkBox = new JCheckBox();
+			Source source = new Source();
+			checkBoxes.add(checkBox);
+			sources.add(source);
+		}
+		
 		saida = new JCheckBox();
-		source = new Source();
 
 		JLabel entradasLabel = new JLabel("Entradas");
 		JLabel saidaLabel = new JLabel("Saída");
@@ -39,51 +43,29 @@ public class GateView extends JPanel implements ActionListener {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 		add(entradasLabel);
-		add(entrada1);
-		add(entrada2);
+		for(JCheckBox box: checkBoxes) {
+			add(box);
+		}
 		add(saidaLabel);
 		add(saida);
 
-		entrada1.addActionListener(this);
-		entrada2.addActionListener(this);
-
+		
+		for(JCheckBox box: checkBoxes) {
+			box.addActionListener(this);
+		}
+		
 		saida.setEnabled(false);
 
 		update();
 	}
 
-
 	private void update() {	
-		
-		if(entrada1.isSelected()) {
-			source.turn(true);
-			gate.connect(0, source);
+		for(int i = 0; checkBoxes.size() > i; i++) {
+			sources.get(i).turn(checkBoxes.get(i).isSelected());
+			gate.connect(i,  sources.get(i));
 		}
-		
-		else if(!entrada1.isSelected()){
-			source.turn(false);
-			gate.connect(0, source);
-		}
-		
-		if(entrada2.isSelected()) {
-			source.turn(true);
-			gate.connect(1, source);
-		}
-		
-		else if(!entrada2.isSelected()){
-			source.turn(false);
-			gate.connect(1, source);
-		}
-		
-		if(gate.read()) {
-			saida.setSelected(true);
-		}
-		
-		else if(!gate.read()) {
-			saida.setSelected(false);
-		}
+		saida.setSelected(gate.read());
 	}
-
 
 	@Override
 	public void actionPerformed(ActionEvent event) {

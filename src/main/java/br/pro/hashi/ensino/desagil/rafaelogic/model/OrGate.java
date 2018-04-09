@@ -6,7 +6,7 @@ public class OrGate extends Gate{
 	private NandGate nand3;
 	
 	public OrGate() {
-		super("OR");
+		super("OR", 2);
 		nand1 = new NandGate();
 		nand2 = new NandGate();
 		nand3 = new NandGate();
@@ -33,11 +33,4 @@ public class OrGate extends Gate{
 		}
 		
 	}
-
-	@Override
-	public double size() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 }

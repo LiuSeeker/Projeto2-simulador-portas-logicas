@@ -7,7 +7,7 @@ public class XorGate extends Gate {
 	private NandGate nand4;
 
 	public XorGate() {
-		super("XOR");
+		super("XOR", 2);
 		nand1 = new NandGate();
 		nand2 = new NandGate();
 		nand3 = new NandGate();
@@ -35,11 +35,4 @@ public class XorGate extends Gate {
 		}
 		
 	}
-
-	@Override
-	public double size() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 }
