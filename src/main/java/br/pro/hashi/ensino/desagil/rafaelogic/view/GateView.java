@@ -9,20 +9,20 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JCheckBox;
 
-import br.pro.hashi.ensino.desagil.rafaelogic.model.FalseEmitter;
 import br.pro.hashi.ensino.desagil.rafaelogic.model.Gate;
-import br.pro.hashi.ensino.desagil.rafaelogic.model.TrueEmitter;
+import br.pro.hashi.ensino.desagil.rafaelogic.model.Source;
 
 public class GateView extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-
 
 	private Gate gate;
 
 	private	JCheckBox entrada1;
 	private	JCheckBox entrada2;
 	private JCheckBox saida;
+	
+	private Source source;
 
 
 	public GateView(Gate gate) {
@@ -31,6 +31,7 @@ public class GateView extends JPanel implements ActionListener {
 		entrada1 = new JCheckBox();
 		entrada2 = new JCheckBox();
 		saida = new JCheckBox();
+		source = new Source();
 
 		JLabel entradasLabel = new JLabel("Entradas");
 		JLabel saidaLabel = new JLabel("Saída");
@@ -55,19 +56,23 @@ public class GateView extends JPanel implements ActionListener {
 	private void update() {	
 		
 		if(entrada1.isSelected()) {
-			gate.connect(0, new TrueEmitter());
+			source.turn(true);
+			gate.connect(0, source);
 		}
 		
 		else if(!entrada1.isSelected()){
-			gate.connect(0, new FalseEmitter());
+			source.turn(false);
+			gate.connect(0, source);
 		}
 		
 		if(entrada2.isSelected()) {
-			gate.connect(1, new TrueEmitter());
+			source.turn(true);
+			gate.connect(1, source);
 		}
 		
 		else if(!entrada2.isSelected()){
-			gate.connect(1, new FalseEmitter());
+			source.turn(false);
+			gate.connect(1, source);
 		}
 		
 		if(gate.read()) {
