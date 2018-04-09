@@ -1,0 +1,4 @@
+Chamar o cosntrutor da classe NandGate no método read() é um problema pois esse método tem como objetivo apenas ler a saída da porta And. Ou seja, toda vez que o método Read() é chamado, além de ser feita a leitura de saída, uma nova contrução do NandGate é feita, que é desnescessário.
+
+Colocariamos a construção do nandB e suas conexões (nandB.conect) dentro do construtor AndGate().
+
