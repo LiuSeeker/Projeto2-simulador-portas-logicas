@@ -5,6 +5,7 @@ public class NotGate extends Gate {
 	
 
 	public NotGate() {
+		super("NOT");
 		nand = new NandGate();
 	}
 	
@@ -17,6 +18,12 @@ public class NotGate extends Gate {
 	public void connect(int pinIndex, Emitter emitter) {
 		nand.connect(0, emitter);
 		nand.connect(1, emitter);
+	}
+
+	@Override
+	public double size() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

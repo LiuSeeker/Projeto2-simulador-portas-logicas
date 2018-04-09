@@ -5,6 +5,7 @@ public class AndGate extends Gate{
 	private NandGate nand2;
 	
 	public AndGate() {
+		super("AND");
 		nand1 = new NandGate();
 		nand2 = new NandGate();
 		nand2.connect(0, nand1);
@@ -26,5 +27,12 @@ public class AndGate extends Gate{
 		}
 		
 	}
+
+	@Override
+	public double size() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 }
