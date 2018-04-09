@@ -19,12 +19,7 @@ public class AndGate extends Gate{
 
 	@Override
 	public void connect(int pinIndex, Emitter emitter) {
-		if(pinIndex == 0) {
-			nand1.connect(0, emitter);
-		}
-		if(pinIndex == 1) {
-			nand1.connect(1, emitter);
-		}
+		nand1.connect(pinIndex, emitter);
 		
 	}
 

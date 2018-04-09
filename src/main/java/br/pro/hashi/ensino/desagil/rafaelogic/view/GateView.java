@@ -1,14 +1,17 @@
 package br.pro.hashi.ensino.desagil.rafaelogic.view;
 
 import java.awt.event.ActionEvent;
+
 import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.JCheckBox;
 
+import br.pro.hashi.ensino.desagil.rafaelogic.model.FalseEmitter;
 import br.pro.hashi.ensino.desagil.rafaelogic.model.Gate;
+import br.pro.hashi.ensino.desagil.rafaelogic.model.TrueEmitter;
 
 public class GateView extends JPanel implements ActionListener {
 
@@ -17,55 +20,63 @@ public class GateView extends JPanel implements ActionListener {
 
 	private Gate gate;
 
-	private	JTextField weightField;
-	private	JTextField radiusField;
-	private JTextField resultField;
+	private	JCheckBox entrada1;
+	private	JCheckBox entrada2;
+	private JCheckBox saida;
 
 
 	public GateView(Gate gate) {
 		this.gate = gate;
 
-		weightField = new JTextField();
-		radiusField = new JTextField();
-		resultField = new JTextField();
+		entrada1 = new JCheckBox();
+		entrada2 = new JCheckBox();
+		saida = new JCheckBox();
 
-		JLabel weightLabel = new JLabel("Weight");
-		JLabel radiusLabel = new JLabel("Radius");
-		JLabel resultLabel = new JLabel("Result");
+		JLabel entradasLabel = new JLabel("Entradas");
+		JLabel saidaLabel = new JLabel("Saída");
 
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-		add(weightLabel);
-		add(weightField);
-		add(radiusLabel);
-		add(radiusField);
-		add(resultLabel);
-		add(resultField);
+		add(entradasLabel);
+		add(entrada1);
+		add(entrada2);
+		add(saidaLabel);
+		add(saida);
 
-		weightField.addActionListener(this);
-		radiusField.addActionListener(this);
+		entrada1.addActionListener(this);
+		entrada2.addActionListener(this);
 
-		resultField.setEnabled(false);
+		saida.setEnabled(false);
 
 		update();
 	}
 
 
-	private void update() {
-		double weight;
-		double radius;
-
-		try {
-			weight = Double.parseDouble(weightField.getText());
-			radius = Double.parseDouble(radiusField.getText());
+	private void update() {	
+		
+		if(entrada1.isSelected()) {
+			gate.connect(0, new TrueEmitter());
 		}
-		catch(NumberFormatException exception) {
-			resultField.setText("?");
-			return;
+		
+		else if(!entrada1.isSelected()){
+			gate.connect(0, new FalseEmitter());
 		}
-
-		double result = gate.size();
-		resultField.setText(Double.toString(result));
+		
+		if(entrada2.isSelected()) {
+			gate.connect(1, new TrueEmitter());
+		}
+		
+		else if(!entrada2.isSelected()){
+			gate.connect(1, new FalseEmitter());
+		}
+		
+		if(gate.read()) {
+			saida.setSelected(true);
+		}
+		
+		else if(!gate.read()) {
+			saida.setSelected(false);
+		}
 	}
 
 
