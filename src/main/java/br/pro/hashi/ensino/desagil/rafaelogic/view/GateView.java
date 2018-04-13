@@ -5,15 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JCheckBox;
 
 import br.pro.hashi.ensino.desagil.rafaelogic.model.Gate;
 import br.pro.hashi.ensino.desagil.rafaelogic.model.Source;
 
-public class GateView extends JPanel implements ActionListener {
+public class GateView extends SimplePanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -21,12 +18,17 @@ public class GateView extends JPanel implements ActionListener {
 	private LinkedList<Source> sources;
 	private JCheckBox saida;
 	private LinkedList<JCheckBox> checkBoxes;
+	private LinkedList<Integer> y;
 
 	public GateView(Gate gate) {
+		super(300, 300);
+		
 		this.gate = gate;
 		
 		sources = new LinkedList<>();
 		checkBoxes = new LinkedList<>();
+		y = new LinkedList<>();
+		
 		
 		for(int i = 0;gate.getSize() > i; i++) {
 			JCheckBox checkBox = new JCheckBox();
@@ -37,17 +39,18 @@ public class GateView extends JPanel implements ActionListener {
 		
 		saida = new JCheckBox();
 
-		JLabel entradasLabel = new JLabel("Entradas");
-		JLabel saidaLabel = new JLabel("Saída");
-
-		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-		add(entradasLabel);
-		for(JCheckBox box: checkBoxes) {
-			add(box);
+		if(checkBoxes.size() == 1) {
+			y.add(142);
 		}
-		add(saidaLabel);
-		add(saida);
+		else if(checkBoxes.size() == 2) {
+			y.add(200);
+			y.add(100);
+		}
+ 
+		for(int i = 0; checkBoxes.size() > i; i++) {
+			add(checkBoxes.get(i),45,y.get(i),18,18);
+		}
+		add(saida,245,142,18,18);
 
 		
 		for(JCheckBox box: checkBoxes) {
