@@ -38,7 +38,6 @@ public class View extends JPanel implements ActionListener {
 		menu.addActionListener(this);
 	}
 
-
 	private void addGateView(int index) {
 		Gate gate = menu.getItemAt(index);
 		gateView = new GateView(gate);
@@ -54,4 +53,5 @@ public class View extends JPanel implements ActionListener {
 
 		((JFrame) SwingUtilities.getRoot(this)).pack();
 	}
+
 }

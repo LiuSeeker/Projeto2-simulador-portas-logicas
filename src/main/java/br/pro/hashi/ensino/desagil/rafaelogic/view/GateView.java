@@ -2,13 +2,15 @@ package br.pro.hashi.ensino.desagil.rafaelogic.view;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
+import java.net.URL;
 import java.util.LinkedList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JColorChooser;
 
@@ -26,9 +28,10 @@ public class GateView extends SimplePanel implements ActionListener, MouseListen
 	private LinkedList<Integer> y;
 	private Color color;
 	private int cor;
-
+	private Image image;
+	
 	public GateView(Gate gate) {
-		super(300, 300);
+		super(300, 180);
 
 		this.gate = gate;
 
@@ -47,11 +50,11 @@ public class GateView extends SimplePanel implements ActionListener, MouseListen
 		saida = new JCheckBox();
 
 		if(checkBoxes.size() == 1) {
-			y.add(142);
+			y.add(81);
 		}
 		else if(checkBoxes.size() == 2) {
-			y.add(200);
-			y.add(100);
+			y.add(56);
+			y.add(104);
 		}
 
 		for(int i = 0; checkBoxes.size() > i; i++) {
@@ -67,6 +70,10 @@ public class GateView extends SimplePanel implements ActionListener, MouseListen
 		saida.setEnabled(false);
 
 		update();
+		
+		String path = gate.toString() + ".png";
+		URL url = getClass().getResource(path);
+		image = new ImageIcon(url).getImage();
 		
 		addMouseListener(this);
 	}
@@ -103,7 +110,7 @@ public class GateView extends SimplePanel implements ActionListener, MouseListen
 		int y = event.getY();
 		double k;
 
-		k = Math.sqrt(Math.pow(255-x, 2)+Math.pow(152-y, 2));
+		k = Math.sqrt(Math.pow(255-x, 2)+Math.pow(90-y, 2));
 		
 		if(k <= 10 && cor == 1) {
 			color = JColorChooser.showDialog(this, null, color);
@@ -131,8 +138,9 @@ public class GateView extends SimplePanel implements ActionListener, MouseListen
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.setColor(color);
-		g.fillOval(245, 142, 20, 20);
-
+		g.fillOval(245, 80, 20, 20);
+		g.drawImage(image, 60, 40, 185, 100, null);
+		
 		getToolkit().sync();
 
 	}
