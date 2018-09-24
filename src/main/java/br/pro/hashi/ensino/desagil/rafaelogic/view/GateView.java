@@ -85,7 +85,7 @@ public class GateView extends SimplePanel implements ActionListener, MouseListen
 		}
 		saida.setSelected(gate.read());
 		
-		if(gate.read() == true) {
+		if(gate.read()) {
 			color = Color.RED;
 			cor = 1;
 			repaint();
